@@ -31,6 +31,8 @@ const continueYes = qs('#continueYes');
 const continueNo = qs('#continueNo');
 const continueText = qs('#continueText');
 const chapterIndicator = qs('#chapterIndicator');
+const controlsToggle = qs('#controlsToggle');
+const controlsFooter = qs('.controls');
 
 // State
 let state = {
@@ -755,6 +757,21 @@ function bindControls() {
   });
   
   fontBtn.addEventListener('click', toggleSerifFont);
+  
+  // Controls toggle for mobile
+  controlsToggle.addEventListener('click', () => {
+    controlsFooter.classList.toggle('show');
+  });
+  
+  // Close controls when clicking outside on mobile
+  document.addEventListener('click', (e) => {
+    if (window.innerWidth <= 768 && 
+        !controlsFooter.contains(e.target) && 
+        !controlsToggle.contains(e.target) &&
+        controlsFooter.classList.contains('show')) {
+      controlsFooter.classList.remove('show');
+    }
+  });
   
   // Verse jump input
   verseJumpInput.addEventListener('input', (e) => {

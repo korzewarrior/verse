@@ -558,7 +558,51 @@ kbd {
 }
 
 /* Mobile Optimizations */
+/* Controls Toggle Button (Mobile) */
+.controls-toggle {
+  display: none; /* Hidden on desktop */
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  z-index: 100;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.controls-toggle:active {
+  transform: scale(0.95);
+}
+
+.controls-toggle-icon {
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 @media (max-width: 768px) {
+  .controls-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .controls {
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+  }
+  
+  .controls.show {
+    transform: translateY(0);
+  }
+  
   .top, .controls {
     padding: 10px 12px;
   }
@@ -704,6 +748,10 @@ body.focus-mode .controls {
   transform: translateY(100%);
   opacity: 0;
   pointer-events: none;
+}
+
+body.focus-mode .controls-toggle {
+  display: none;
 }
 
 body.focus-mode .fade-overlay.top {
