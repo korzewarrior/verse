@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Verse — Read scripture with focus and contemplation">
+  <title>Verse</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">verse</div>
+    <button id="infoBtn" aria-label="About and settings" class="icon-btn">
+      <span aria-hidden="true">i</span>
+    </button>
+  </header>
+
+  <main>
+    <div id="loadingMessage" class="loading-state">
+      <div class="loading-spinner"></div>
+      <p>Loading Bible translation...</p>
+    </div>
+    <div id="scrollContainer" tabindex="0" role="region" aria-label="Scripture viewer" style="display: none;">
+      <div id="verses" aria-hidden="true"></div>
+      <div class="sr-only" aria-live="polite" id="live"></div>
+      <div class="fade-overlay top"></div>
+      <div class="fade-overlay bottom"></div>
+    </div>
+    
+    <!-- Quick verse jump modal -->
+    <div id="verseJumpModal" class="verse-jump-modal" style="display: none;">
+      <input type="text" id="verseJumpInput" placeholder="e.g., John 3:16 or Psalm 23" autocomplete="off">
+      <div id="verseJumpSuggestions" class="verse-suggestions"></div>
+    </div>
+    
+    <!-- Focus mode notification -->
+    <div id="focusModeNotification" class="focus-notification" style="display: none;">
+      Press ESC to exit focus mode
+    </div>
+    
+    <!-- Copy notification -->
+    <div id="copyNotification" class="copy-notification" style="display: none;">
+      ✓ Copied verse
+    </div>
+    
+    <!-- Continue reading prompt -->
+    <div id="continuePrompt" class="continue-prompt" style="display: none;">
+      <p><strong>Continue reading?</strong></p>
+      <p id="continueText"></p>
+      <div class="continue-actions">
+        <button id="continueYes" class="continue-btn">Continue</button>
+        <button id="continueNo" class="continue-btn secondary">Start Fresh</button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="controls">
+    <div class="center-indicator"></div>
+    <div class="chapter-indicator" id="chapterIndicator"></div>
+    
+    <div class="controls-inner">
+        <label class="control-group">
+          <span class="control-label">Translation</span>
+          <select id="translation" aria-label="Select translation" title="Choose your preferred Bible translation">
+            <option value="KJV">King James (KJV)</option>
+            <option value="WEB">World English (WEB)</option>
+            <option value="ASV">American Standard (ASV)</option>
+            <option value="BBE">Basic English (BBE)</option>
+          </select>
+        </label>
+
+      <label class="control-group">
+        <span class="control-label">Book</span>
+        <select id="book" aria-label="Select book"></select>
+      </label>
+
+      <label class="control-group">
+        <span class="control-label">Chapter</span>
+        <select id="chapter" aria-label="Select chapter"></select>
+      </label>
+
+      <div class="control-group">
+        <span class="control-label">Font</span>
+        <button id="fontBtn" class="theme-btn" aria-label="Toggle font style" title="Toggle serif/sans-serif">
+          <span class="font-indicator">Aa</span>
+        </button>
+      </div>
+
+      <div class="control-group">
+        <span class="control-label">Theme</span>
+        <button id="themeBtn" class="theme-btn" aria-pressed="false" aria-label="Toggle theme">
+          <img id="themeIcon" src="assets/icon-moon.svg" alt="" aria-hidden="true">
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <dialog id="info" aria-labelledby="infoTitle">
+    <div class="dialog-content">
+      <header class="dialog-header">
+        <h2 id="infoTitle">About Verse</h2>
+        <button id="closeInfo" class="icon-btn close-btn" aria-label="Close">×</button>
+      </header>
+      
+      <div class="dialog-body">
+        <p>
+          Read the entire Bible with focused attention. The verse in the center is fully visible, while verses above and below gently fade. <strong>Scroll</strong> or use <strong>arrow keys</strong> to navigate through all 66 books from Genesis to Revelation.
+        </p>
+        
+        <h3>Keyboard shortcuts</h3>
+        <ul class="shortcuts">
+          <li><kbd>↓</kbd> or <kbd>↑</kbd> — Next/previous verse</li>
+          <li><kbd>Page Down</kbd> or <kbd>Page Up</kbd> — Jump 5 verses</li>
+          <li><kbd>Home</kbd> or <kbd>End</kbd> — First/last verse</li>
+        </ul>
+
+        <h3>Settings</h3>
+        <label class="setting-toggle">
+          <input type="checkbox" id="audioToggle">
+          <span>Enable tick sound</span>
+        </label>
+
+        <h3>Attribution</h3>
+        <p class="attribution">
+          Text: <strong>King James Version</strong> (KJV), <strong>World English Bible</strong> (WEB), <strong>American Standard Version</strong> (ASV), and <strong>Bible in Basic English</strong> (BBE). All translations are in the Public Domain.
+        </p>
+        <p class="attribution">
+          Made with care · <a href="https://bible.korze.org" target="_blank" rel="noopener">bible.korze.org</a>
+        </p>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="bible-loader.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
+
