@@ -558,40 +558,60 @@ kbd {
 }
 
 /* Mobile Optimizations */
-/* Controls Toggle Button (Mobile) */
-.controls-toggle {
-  display: none; /* Hidden on desktop */
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: var(--accent);
-  color: white;
+/* Hamburger Menu Button (Mobile only) */
+.menu-btn {
+  display: none;
+  width: 40px;
+  height: 40px;
+  background: none;
   border: none;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   cursor: pointer;
-  z-index: 100;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  padding: 8px;
+  position: relative;
 }
 
-.controls-toggle:active {
-  transform: scale(0.95);
+.menu-icon {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--ink);
+  position: relative;
+  transition: background 0.3s ease;
 }
 
-.controls-toggle-icon {
-  font-size: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.menu-icon::before,
+.menu-icon::after {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 2px;
+  background: var(--ink);
+  transition: transform 0.3s ease;
+}
+
+.menu-icon::before {
+  top: -7px;
+}
+
+.menu-icon::after {
+  top: 7px;
+}
+
+.menu-btn.active .menu-icon {
+  background: transparent;
+}
+
+.menu-btn.active .menu-icon::before {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-btn.active .menu-icon::after {
+  transform: rotate(-45deg) translate(5px, -5px);
 }
 
 @media (max-width: 768px) {
-  .controls-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .menu-btn {
+    display: block;
   }
   
   .controls {
@@ -599,7 +619,7 @@ kbd {
     transition: transform 0.3s ease;
   }
   
-  .controls.show {
+  .controls.open {
     transform: translateY(0);
   }
   
@@ -750,8 +770,9 @@ body.focus-mode .controls {
   pointer-events: none;
 }
 
-body.focus-mode .controls-toggle {
-  display: none;
+body.focus-mode .menu-btn {
+  opacity: 0;
+  pointer-events: none;
 }
 
 body.focus-mode .fade-overlay.top {

@@ -31,7 +31,7 @@ const continueYes = qs('#continueYes');
 const continueNo = qs('#continueNo');
 const continueText = qs('#continueText');
 const chapterIndicator = qs('#chapterIndicator');
-const controlsToggle = qs('#controlsToggle');
+const menuBtn = qs('#menuBtn');
 const controlsFooter = qs('.controls');
 
 // State
@@ -758,18 +758,20 @@ function bindControls() {
   
   fontBtn.addEventListener('click', toggleSerifFont);
   
-  // Controls toggle for mobile
-  controlsToggle.addEventListener('click', () => {
-    controlsFooter.classList.toggle('show');
+  // Menu toggle for mobile
+  menuBtn.addEventListener('click', () => {
+    controlsFooter.classList.toggle('open');
+    menuBtn.classList.toggle('active');
   });
   
   // Close controls when clicking outside on mobile
   document.addEventListener('click', (e) => {
     if (window.innerWidth <= 768 && 
         !controlsFooter.contains(e.target) && 
-        !controlsToggle.contains(e.target) &&
-        controlsFooter.classList.contains('show')) {
-      controlsFooter.classList.remove('show');
+        !menuBtn.contains(e.target) &&
+        controlsFooter.classList.contains('open')) {
+      controlsFooter.classList.remove('open');
+      menuBtn.classList.remove('active');
     }
   });
   
