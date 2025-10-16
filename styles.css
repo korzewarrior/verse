@@ -14,6 +14,7 @@
   --shadow: 0 8px 24px rgba(0,0,0,.08);
   --grain: url('assets/grain.svg');
   --transition: 200ms ease;
+  --controls-height: 70px;
 }
 
 .dark {
@@ -192,7 +193,7 @@ main {
 }
 
 .fade-overlay.bottom {
-  bottom: 70px;
+  bottom: var(--controls-height, 70px);
   background: linear-gradient(
     to top,
     var(--bg) 0%,
