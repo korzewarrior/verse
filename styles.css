@@ -342,6 +342,13 @@ select, .theme-btn {
 .theme-btn img {
   width: 18px;
   height: 18px;
+  filter: brightness(0) saturate(100%);
+  opacity: 0.7;
+}
+
+.dark .theme-btn img {
+  filter: brightness(0) saturate(100%) invert(1);
+  opacity: 0.9;
 }
 
 .dark select, .dark .theme-btn {
