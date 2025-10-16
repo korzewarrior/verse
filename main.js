@@ -244,20 +244,28 @@ function scrollToVerse(index) {
 // ==== Scroll Handling ====
 let scrollTimeout;
 let snapTimeout;
+let lastScrollTop = 0;
+let scrollVelocity = 0;
 
 function onScroll() {
+  // Calculate scroll velocity for snap detection
+  const currentScrollTop = scrollContainer.scrollTop;
+  scrollVelocity = Math.abs(currentScrollTop - lastScrollTop);
+  lastScrollTop = currentScrollTop;
+  
   // Update current verse in real-time
   clearTimeout(scrollTimeout);
   scrollTimeout = setTimeout(() => {
     updateCurrentVerse();
   }, 50);
   
-  // Magnetic snap after scrolling stops
+  // Magnetic snap after scrolling stops (only if scrolling slowly)
   clearTimeout(snapTimeout);
   snapTimeout = setTimeout(() => {
-    if (!state.isScrollingProgrammatically) {
+    if (!state.isScrollingProgrammatically && scrollVelocity < 50) {
       snapToNearestVerse();
     }
+    scrollVelocity = 0;
   }, 150);
 }
 
