@@ -193,12 +193,14 @@ main {
 }
 
 .fade-overlay.bottom {
-  bottom: var(--controls-height, 70px);
+  bottom: 0;
+  height: calc(35vh + var(--controls-height, 70px));
   background: linear-gradient(
     to top,
     var(--bg) 0%,
-    rgba(249, 247, 243, 0.95) 10%,
-    rgba(249, 247, 243, 0.8) 30%,
+    var(--bg) var(--controls-height, 70px),
+    rgba(249, 247, 243, 0.95) calc(var(--controls-height, 70px) + 5vh),
+    rgba(249, 247, 243, 0.8) calc(var(--controls-height, 70px) + 15vh),
     transparent 100%
   );
 }
@@ -207,8 +209,9 @@ main {
   background: linear-gradient(
     to top,
     var(--bg) 0%,
-    rgba(15, 16, 19, 0.95) 10%,
-    rgba(15, 16, 19, 0.8) 30%,
+    var(--bg) var(--controls-height, 70px),
+    rgba(15, 16, 19, 0.95) calc(var(--controls-height, 70px) + 5vh),
+    rgba(15, 16, 19, 0.8) calc(var(--controls-height, 70px) + 15vh),
     transparent 100%
   );
 }
